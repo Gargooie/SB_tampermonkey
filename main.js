@@ -57,27 +57,31 @@ let greeting_footer_arr=["Хорошего дня!<br/>С уважением, Е
                          "Всего хорошего!<br/>С уважением, Евгений  🖖",
                          ]
 
-//случайное число
+//рандомизация среднего блока
+let greeting_middle_result;
+//рандомизация нижнего блока
+let rand_greeting_footer_arr;
+//добавление здравствуйте в привествие с коэффициентом
+let rand_current_time_arr;
+//приветствие в зависимости от времени суток
+let current_time;
+let current_hour;
+
+
+//случайное число для сообщения привествия
 function randomizer(number) {
   return Math.round(Math.random()*number);
-
 }
 
-//рандомизация среднего блока
-let greeting_middle_result = greeting_middle_arr_1[randomizer(greeting_middle_arr_1.length-1)]
-+ greeting_middle_arr_2[randomizer(greeting_middle_arr_2.length-1)];
-//рандомизация нижнего блока
-var rand_greeting_footer_arr = randomizer(greeting_footer_arr.length-1);
-//коррекция рандомизации нижнего блока
-rand_greeting_footer_arr==greeting_footer_arr.length ? rand_greeting_footer_arr=greeting_footer_arr.length-1:"pass";
-//добавление здравствуйте в привествие с коэффициентом
-var rand_current_time_arr = Math.floor(Math.random() * 1.3);
+function greeting_message_constructor(){
+    greeting_middle_result= greeting_middle_arr_1[randomizer(greeting_middle_arr_1.length-1)]
+        + greeting_middle_arr_2[randomizer(greeting_middle_arr_2.length-1)];
+    rand_greeting_footer_arr = randomizer(greeting_footer_arr.length-1);
+    //коррекция рандомизации нижнего блока
+    rand_greeting_footer_arr==greeting_footer_arr.length ? rand_greeting_footer_arr=greeting_footer_arr.length-1:"pass";
+    rand_current_time_arr = Math.floor(Math.random() * 1.3);
 
-//приветствие в зависимости от времени суток
-var current_time;
-var current_hour = new Date().getHours();
-
-if (rand_current_time_arr ==1) { current_time = "Здравствуйте"
+    if (rand_current_time_arr ==1) { current_time = "Здравствуйте"
                            }else{
 
                                if (current_hour === 0 || current_hour <= 4) {
@@ -90,19 +94,28 @@ if (rand_current_time_arr ==1) { current_time = "Здравствуйте"
                               //     current_time = "<span class=\"time-of-the-day\">Добрый день</span>";
                                    current_time = "Добрый день";
                                }
-}
+                           }
 
+    GREETING_TITLE_WITHOUT_NAME = current_time + "!";
+    GREETING_TITLE_WITH_NAME = current_time + ", ";
+    GREETING_MIDDLE = greeting_middle_result;
+    GREETING_FOOTER = greeting_footer_arr[rand_greeting_footer_arr];
+    current_hour = new Date().getHours();
+};
 
-const GREETING_TITLE_WITHOUT_NAME = current_time + "!";
-const GREETING_TITLE_WITH_NAME = current_time + ", ";
+let GREETING_TITLE_WITHOUT_NAME;
+let GREETING_TITLE_WITH_NAME;
+let GREETING_MIDDLE;
+let GREETING_FOOTER;
+let x;
 
-const GREETING_MIDDLE = greeting_middle_result;
 const GREETING_MIDDLE_SECOND = "Добро пожаловать на курс. Информацию обо мне вы можете посмотреть в профиле.<br/>\
 Будет здорово, если и вы расскажете о себе, чтобы мы могли более четко определить цели на курс.<br/><br/>По вашей работе:<br/>\
 Задачи решены верно. Разбор последней в следующем видео.<br/>Можете приступать к следующему модулю."
 
 
-const GREETING_FOOTER = greeting_footer_arr[rand_greeting_footer_arr];
+
+greeting_message_constructor();
 
 
 const INSERT_CYRILLYC_NAME_IN_GREETING = true; 	// если установлено true, то к GREETING_TITLE добавится имя и !
@@ -224,6 +237,12 @@ const HIDE_EMPTY_HW_CHECKBOX_CLASS = 'hide_empty_hw_checkbox';
     // }
 
     function appendSettingsButton(item) {
+
+        x =randomizer(100);
+        console.log(x);
+        greeting_message_constructor();
+        console.log(GREETING_MIDDLE);
+
         let settingsButton = $('<input>', {
             class: 'sendel_input',
             type: 'checkbox',
